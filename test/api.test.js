@@ -55,7 +55,7 @@ describe("GET /api/recipes", () => {
   test("200:should respond with a filtered array of recipe objects when multiple exclude_ingredient queries passed", () => {
     ingredientArray = [{ name: expect.any(String), grams: expect.any(Number) }];
     kaleFilterArray = [{ name: "kale", grams: expect.any(Number) }];
-    flaxFilterArray = [{ name: "kale", grams: expect.any(Number) }];
+    flaxFilterArray = [{ name: "flax", grams: expect.any(Number) }];
 
     filteredRecipeObject = {
       id: expect.any(String),
