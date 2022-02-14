@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-exports.fetchRecipes = () => {
+exports.fetchRecipes = (exclude_ingredients) => {
   return new Promise((resolve, reject) => {
     fs.readFile("./data/data.json", "utf-8", (err, data) => {
       if (err) {
