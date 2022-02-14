@@ -51,4 +51,30 @@ describe("GET /api/recipes", () => {
         );
       });
   });
+
+  test("200:should respond with a filtered array of recipe objects when multiple exclude_ingredient queries passed", () => {
+    ingredientArray = [{ name: expect.any(String), grams: expect.any(Number) }];
+    kaleFilterArray = [{ name: "kale", grams: expect.any(Number) }];
+    flaxFilterArray = [{ name: "kale", grams: expect.any(Number) }];
+
+    filteredRecipeObject = {
+      id: expect.any(String),
+      imageUrl: expect.any(String),
+      instructions: expect.any(String),
+      ingredients:
+        expect.arrayContaining(ingredientArray) &&
+        expect.not.arrayContaining(kaleFilterArray) &&
+        expect.not.arrayContaining(flaxFilterArray),
+    };
+
+    return request
+      .get("/api/recipes?exclude_ingredients=kale,flax")
+      .expect(200)
+      .then((res) => {
+        expect(res.body.recipes.length).not.toBe(0);
+        res.body.recipes.forEach((recipe) =>
+          expect(recipe).toEqual(expect.objectContaining(filteredRecipeObject))
+        );
+      });
+  });
 });
